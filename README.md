@@ -1,33 +1,33 @@
 #include <iostream>
+#include <string>
 
-class Vehicle {
+class Student {
 public:
-    int speed;
-    float fuelLevel;
+    std::string name;  // Public member (can be accessed and modified directly)
 
-    Vehicle(int spd, float fuel) : speed(spd), fuelLevel(fuel) {}
+    // Constructor to initialize Student object
+    Student(const std::string& studentName, int studentId) 
+        : name(studentName), id(studentId) {}
 
-    void displayStatus() {
-        std::cout << "Speed: " << speed << " km/h, Fuel Level: " << fuelLevel << " liters\n";
+    // Getter function to access the private 'id' member
+    int getId() const {
+        return id;
     }
+
+private:
+    int id;  // Private member, only accessible via getId()
 };
 
 int main() {
-    Vehicle car(0, 50.0f); // Create a Vehicle object with initial values
+    // Creating a Student object
+    Student student("Alice", 12345);
 
-    // Pointer to data member 'speed'
-    int Vehicle::*ptrSpeed = &Vehicle::speed;
+    // Directly accessing and modifying the public 'name' member
+    student.name = "Bob";  
 
-    // Pointer to member function 'displayStatus'
-    void (Vehicle::*ptrDisplayStatus)() = &Vehicle::displayStatus;
-
-    // Modifying speed using pointer to member
-    car.*ptrSpeed = 100;  // Accessing the member using object
-
-    // Calling displayStatus using pointer to member function
-    (car.*ptrDisplayStatus)();
+    // Accessing the private 'id' member using the getter function
+    std::cout << "Student Name: " << student.name << std::endl;
+    std::cout << "Student ID: " << student.getId() << std::endl;
 
     return 0;
 }
-
-
